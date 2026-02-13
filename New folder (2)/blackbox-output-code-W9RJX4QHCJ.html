@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore stunning nature photography in a premium gallery showcasing the beauty of the natural world.">
+    <meta name="keywords" content="nature photography, gallery, images, wildlife, landscapes">
+    <title>Pure Nature Gallery</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #e8f5e8;
+            background: linear-gradient(135deg, #0a2e1a 0%, #1a5f4a 50%, #0f4c3a 100%);
+            min-height: 100vh;
+        }
+        a {
+            color: #a8e6a3;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #d4f7d4;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 46, 26, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 100;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        nav a {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        /* Hero Section */
+        #hero {
+            padding: 120px 2rem 80px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        #hero.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        #hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Gallery Section */
+        #gallery {
+            padding: 4rem 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        #gallery.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .card:hover img {
+            transform: scale(1.1);
+        }
+        .card-content {
+            padding: 1rem;
+        }
+        .card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        .card p {
+            font-size: 0.9rem;
+            color: #c8e6c9;
+        }
+
+        /* Facts Section */
+        #facts {
+            padding: 4rem 2rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        #facts.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #facts h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        .fact {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem auto;
+            max-width: 600px;
+        }
+
+        /* About Section */
+        #about {
+            padding: 4rem 2rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        #about.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #about h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        .profile {
+            display: inline-block;
+            text-align: center;
+        }
+        .profile img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        .profile p {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            background: rgba(10, 46, 26, 0.9);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        footer .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            #hero h1 {
+                font-size: 2rem;
+            }
+            #hero p {
+                font-size: 1rem;
+            }
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .fact {
+                margin: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#hero">Home</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#facts">Facts</a>
+        <a href="#about">About</a>
+    </nav>
+
+    <section id="hero">
+        <h1>Pure Nature Gallery</h1>
+        <p>Immerse yourself in the serene beauty of nature through our curated collection of stunning photographs.</p>
+    </section>
+
+    <section id="gallery">
+        <div class="grid">
+            <div class="card">
+                <img src="https://source.unsplash.com/random/400x300/?forest" alt="Lush Forest">
+                <div class="card-content">
+                    <h3>Lush Forest</h3>
+                    <p>A dense woodland teeming with life and tranquility.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://source.unsplash.com/random/400x300/?mountain" alt="Majestic Mountains">
+                <div class="card-content">
+                    <h3>Majestic Mountains</h3>
+                    <p>Towering peaks that inspire awe and adventure.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://source.unsplash.com/random/400x300/?ocean" alt="Calm Ocean">
+                <div class="card-content">
+                    <h3>Calm Ocean</h3>
+                    <p>Serene waves lapping at pristine shores.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://source.unsplash.com/random/400x300/?wildlife" alt="Wildlife Encounter">
+                <div class="card-content">
+                    <h3>Wildlife Encounter</h3>
+                    <p>Capturing the raw beauty of animals in their habitat.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://source.unsplash.com/random/400x300/?sunset" alt="Golden Sunset">
+                <div class="card-content">
+                    <h3>Golden Sunset</h3>
+                    <p>The sky ablaze with colors at day's end.</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://source.unsplash.com/random/400x300/?river" alt="Flowing River">
+                <div class="card-content">
+                    <h3>Flowing River</h3>
+                    <p>Crystal waters carving paths through nature.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="facts">
+        <h2>Nature Facts</h2>
+        <div class="fact">
+            <p>Nature provides over 80% of the world's food supply through agriculture and wild resources.</p>
+        </div>
+        <div class="fact">
+            <p>Forests cover about 31% of the Earth's land surface and are home to more than 80% of terrestrial biodiversity.</p>
+        </div>
+        <div class="fact">
+            <p>The Amazon Rainforest produces 20% of the world's oxygen and absorbs vast amounts of CO2.</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About the Creator</h2>
+        <div class="profile">
+            <img src="https://source.unsplash.com/random/100x100/?portrait" alt="Creator Profile">
+            <p>Passionate nature photographer capturing the essence of the wild. With years of experience, I aim to inspire conservation and appreciation for our planet's beauty.</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+            <a href="#">Twitter</a>
+        </div>
+        <p>&copy; 2023 Pure Nature Gallery. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections
+        document.querySelectorAll('#hero, #gallery, #facts, #about').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
